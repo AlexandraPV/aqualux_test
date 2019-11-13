@@ -1,6 +1,7 @@
 class Root {
     constructor() {
-        this.div = document.getElementById("output");
+        this.div_output_data = document.getElementById("output");
+        this.response_text_output = document.getElementById('output_request')
         this.json_path = "./test.json";
         this.form = document.getElementById("form");
 
@@ -9,15 +10,15 @@ class Root {
 
 
     readTextFile(file, callback) {
-        var rawFile = new XMLHttpRequest();
-        rawFile.overrideMimeType("application/json");
-        rawFile.open("GET", file, true);
-        rawFile.onreadystatechange = function () {
-            if (rawFile.readyState === 4 && rawFile.status === 200) {
-                callback(rawFile.responseText);
+        var file_req = new XMLHttpRequest();
+        file_req.overrideMimeType("application/json");
+        file_req.open("GET", file, true);
+        file_req.onreadystatechange = function () {
+            if (file_req.readyState === 4 && file_req.status === 200) {
+                callback(file_req.responseText);
             }
         };
-        rawFile.send(null);
+        file_req.send(null);
     }
 
     init() {
@@ -27,11 +28,9 @@ class Root {
             data_output = self.sort_elements(JSON.parse(arr));
             self.render(data_output);
         });
-
     }
 
     sort_elements(data) {
-
         return data.sort((a, b) =>
             (a.nodetype < b.nodetype) ? -1 :
                 ((a.nodetype > b.nodetype) ? 1 : 0))
@@ -50,8 +49,6 @@ class Root {
                 }
                 return 0;
             });
-
-
     }
 
     render(data) {
@@ -65,32 +62,40 @@ class Root {
             }
             ul.appendChild(li);
         }
-        this.div.appendChild(ul);
+        this.div_output_data.appendChild(ul);
     }
 
 
     form_submit() {
         let obj = {};
         let file_obj = {};
-        // let str_ = ''
         let self = this;
         this.form.addEventListener('submit', function (event) {
             event.preventDefault();
             let formData = new FormData(this);
             let file_form = document.getElementById('file_form').files[0];
-              for (let elem in file_form) {
+            for (let elem in file_form) {
                 file_obj[elem] = file_form[elem];
             }
-
             for (let elem of formData.entries()) {
                 obj[elem[0]] = elem[1];
             }
             obj['file'] = file_obj;
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts', false);
+
+
+            xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts', false); //test url
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 201) {
+                    self.response_text_output.innerHTML =
+                        'created request status :' + xhr.status + xhr.responseText;
+                } else {
+                    // error //
+                    alert(xhr.status + ': ' + xhr.statusText);
+                }
+            };
             xhr.send(JSON.stringify(obj));
 
-            console.log(xhr);
         })
 
 
