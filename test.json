@@ -1,0 +1,44 @@
+[
+  {
+    "nodetype": "aaaa",
+    "nodename": "test",
+    "datetime": "02.10.2018 12:34:23"
+  },
+  {
+    "nodetype": "dir",
+    "nodename": "test",
+    "datetime": "02.10.2018 12:34:23"
+  },
+  {
+    "nodetype": "file",
+    "nodename": "test2",
+    "datetime": "21.03.2018 23:40:23"
+  },
+  {
+    "nodetype": "file",
+    "nodename": "fileapp.sh",
+    "datetime": "12:43:52"
+  },
+
+    {
+    "nodetype": "abb",
+    "nodename": "kkkk",
+    "datetime": "12:43:52"
+  },
+
+      {
+    "nodetype": "zzz",
+    "nodename": "rt",
+    "datetime": "12:43:52"
+  },
+       {
+    "nodetype": "dir",
+    "nodename": "qqq",
+    "datetime": "12:43:52"
+  },
+  {
+    "nodetype": "dir",
+    "nodename": "mydir",
+    "datetime": "03.12.2017 03:23:24"
+  }
+]
