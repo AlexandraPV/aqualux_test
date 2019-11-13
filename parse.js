@@ -84,7 +84,7 @@ class Root {
             let xhr = new XMLHttpRequest();
 
 
-            xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts', false); //test url
+            xhr.open('POST', this.action, false); //test url
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 201) {
                     self.response_text_output.innerHTML =
